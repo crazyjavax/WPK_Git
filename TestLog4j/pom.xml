@@ -1,0 +1,103 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.netca.log</groupId><!-- :TOMOD -->
+    <artifactId>TestLog4j</artifactId><!-- :TOMOD -->
+    <packaging>war</packaging><!-- :TOMOD web工程为war，普通工程为jar -->
+    <version>1.0.0-SNAPSHOT</version><!-- :TOMOD -->
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <webVersion>3.0</webVersion>
+        <Spring.version>4.2.0.RELEASE</Spring.version>
+    </properties>
+
+    <!--
+      scope的可选值
+      * compile，缺省值，适用于所有阶段，会随着项目一起发布。
+      * provided，类似compile，期望JDK、容器或使用者会提供这个依赖。如servlet.jar。
+      * runtime，只在运行时使用，如JDBC驱动，适用运行和测试阶段。
+      * test，只在测试时使用，用于编译和运行测试代码。不会随项目发布。
+      * system，类似provided，需要显式提供包含依赖的jar，Maven不会在Repository中查找它。
+    -->
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- :TOMOD 在此添加本地工程依赖 -->
+        <!--
+        <dependency>
+            <groupId>net.netca.bpms</groupId>
+            <artifactId>netca-bpms-commons</artifactId>
+            <version>2.0.0-SNAPSHOT</version>
+        </dependency>
+        -->
+
+        <!-- :TOMOD 在此添加项目依赖的jar包 -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
+
+		<!-- 日志相关 -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+
+        
+    </dependencies>
+
+    <build>
+        <finalName>TestLog4j</finalName><!-- :TOMOD 设置打包使用的名称 -->
+        <sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                    <compilerArguments>
+                        <bootclasspath>${java.home}/lib/rt.jar${path.separator}${java.home}/lib/jce.jar</bootclasspath>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+            <plugin><!-- :TOMOD 此插件用于web工程，非web工程请删除-->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <warSourceDirectory>WebRoot</warSourceDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
